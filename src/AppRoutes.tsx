@@ -8,7 +8,8 @@ import Location from "./pages/Location";
 import Contact from "./pages/Contact";
 
 import AdminBasePage from "./pages/AdminBasePage";
-import Dashboard from "./pages/Dashboard";
+// import Dashboard from "./pages/Dashboard";
+import Vehicles from "./pages/Vehicles";
 
 function AppRoutes() {
     return (
@@ -23,7 +24,7 @@ function AppRoutes() {
                     <Route path="/contato" element={<Contact />} />
                 </Route>
                 <Route path="/auth" element={<AdminBasePage />}>
-                    <Route index element={<Dashboard />} />
+                    <Route index element={<Vehicles />} />
                 </Route>
             </Routes>
         </BrowserRouter>
