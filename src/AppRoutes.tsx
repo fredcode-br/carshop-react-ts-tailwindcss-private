@@ -8,8 +8,10 @@ import Location from "./pages/Location";
 import Contact from "./pages/Contact";
 
 import AdminBasePage from "./pages/AdminBasePage";
-// import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/Dashboard";
+import Manufacturers from "./pages/Manufacturers";
 import Vehicles from "./pages/Vehicles";
+import PrivateRoute from "./utils/PrivateRoute";
 
 function AppRoutes() {
     return (
@@ -17,15 +19,26 @@ function AppRoutes() {
             <Routes>
                 <Route path="/" element={<BasePage />}>
                     <Route index element={<Home />} />
-                    <Route path="/home" element={<Home />} />   
+                    <Route path="/home" element={<Home />} />
                     <Route path="/estoque" element={<Stock />} />
                     <Route path="/vender" element={<Sell />} />
                     <Route path="/localizacao" element={<Location />} />
                     <Route path="/contato" element={<Contact />} />
                 </Route>
-                <Route path="/auth" element={<AdminBasePage />}>
-                    <Route index element={<Vehicles />} />
+                <Route path="/" element={<PrivateRoute />}>
+                    <Route element={<AdminBasePage />}>
+                        <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/fabricantes" element={<Manufacturers />} />
+                        <Route path="/veiculos" element={<Vehicles />} />
+                    </Route>
                 </Route>
+
+
+
+                {/* <Route path="/" element={<FormBasePage />}>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/cadastro" element={<Cadastro />} />
+                </Route> */}
             </Routes>
         </BrowserRouter>
     )

@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import Tr from './VehiclesList/Tr';
+import Tr from './Tr';
 import AdminPagination from '../../../components/AdminPagination/indext';
 
 interface Vehicle {
@@ -8,6 +7,8 @@ interface Vehicle {
     name: string;
     price: number;
     status: string;
+    photo: string; 
+    year: number; 
 }
 
 function AllVehicles() {
@@ -19,74 +20,18 @@ function AllVehicles() {
             id: 1,
             name: "Veículo",
             price: 1234,
-            status: "Disponível"
+            status: "Disponível",
+            photo: "/src/assets/img/defaultcar.jpg",
+            year: 2022,
         },
         {
             id: 2,
             name: "Veículo",
             price: 1234,
-            status: "Disponível"
+            status: "Disponível",
+            photo: "/src/assets/img/defaultcar.jpg",
+            year: 2022,
         },
-        {
-            id: 3,
-            name: "Veículo",
-            price: 1234,
-            status: "Disponível"
-        },
-        {
-            id: 4,
-            name: "Veículo",
-            price: 1234,
-            status: "Disponível"
-        },
-        {
-            id: 5,
-            name: "Veículo",
-            price: 1234,
-            status: "Disponível"
-        },
-        {
-            id: 6,
-            name: "Veículo",
-            price: 1234,
-            status: "Disponível"
-        },
-        {
-            id: 7,
-            name: "Veículo",
-            price: 1234,
-            status: "Disponível"
-        },
-        {
-            id: 8,
-            name: "Veículo",
-            price: 1234,
-            status: "Disponível"
-        },
-        {
-            id: 9,
-            name: "Veículo",
-            price: 1234,
-            status: "Disponível"
-        },
-        {
-            id: 10,
-            name: "Veículo",
-            price: 1234,
-            status: "Disponível"
-        },
-        {
-            id: 11,
-            name: "Veículo",
-            price: 1234,
-            status: "Disponível"
-        },
-        {
-            id: 12,
-            name: "Veículo",
-            price: 1234,
-            status: "Disponível"
-        }
     ];
 
     const indexOfLastItem: number = currentPage * itemsPerPage;
@@ -104,20 +49,15 @@ function AllVehicles() {
     };
 
     return (
-        <section className="bg-white w-full mt-8 p-5 rounded-md">
-            <div className="flex justify-between items-center w-full">
-                <h3 className="mr-4">Todos os veículos</h3>
-                <div className="relative">
-                    <input type="search" className="border border-gray-300 rounded-md px-3 py-1 focus:outline-none focus:border-blue-500" />
-                    <MagnifyingGlassIcon className="h-5 w-5 absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400" />
-                </div>
-            </div>
-            <div className="overflow-x-auto pt-5">
+        <section className="bg-white w-full mt-8 p-5 pt-1 rounded-md">
+            <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead>
                         <tr>
-                            <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-400 tracking-wider">Veículo</th>
+                            <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-400 tracking-wider">Foto</th>
+                            <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-400 tracking-wider">Título</th>
                             <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-400 tracking-wider">Preço</th>
+                            <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-400 tracking-wider">Ano</th>
                             <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-400 tracking-wider">Status</th>
                             <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-400 tracking-wider">Ação</th>
                         </tr>
@@ -130,6 +70,8 @@ function AllVehicles() {
                                 name={vehicle.name}
                                 price={vehicle.price}
                                 status={vehicle.status}
+                                photo={vehicle.photo}
+                                year={vehicle.year}
                             />
                         ))}
                     </tbody>
