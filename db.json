@@ -1,0 +1,105 @@
+{
+    "fabricantes": [
+      {
+        "id_fabricante": 1,
+        "nome_fabricante": "Fabricante A"
+      },
+      {
+        "id_fabricante": 2,
+        "nome_fabricante": "Fabricante B"
+      }
+    ],
+    "tipos_veiculo": [
+      {
+        "id_tipo_veiculo": 1,
+        "nome_tipo_veiculo": "Carro"
+      },
+      {
+        "id_tipo_veiculo": 2,
+        "nome_tipo_veiculo": "Moto"
+      }
+    ],
+    "categorias": [
+      {
+        "id_categoria": 1,
+        "nome_categoria": "Categoria A",
+        "id_tipo_veiculo": 1
+      },
+      {
+        "id_categoria": 2,
+        "nome_categoria": "Categoria B",
+        "id_tipo_veiculo": 2
+      }
+    ],
+    "veiculos": [
+      {
+        "id_veiculo": 1,
+        "nome_veiculo": "Carro A",
+        "modelo": "Modelo A",
+        "ano": 2020,
+        "km": 15000,
+        "preco": 35000,
+        "status": "D",
+        "visualizacoes": 100,
+        "id_fabricante": 1,
+        "id_tipo_veiculo": 1,
+        "id_categoria": 1
+      },
+      {
+        "id_veiculo": 2,
+        "nome_veiculo": "Moto B",
+        "modelo": "Modelo B",
+        "ano": 2018,
+        "km": 10000,
+        "preco": 20000,
+        "status": "V",
+        "visualizacoes": 200,
+        "id_fabricante": 2,
+        "id_tipo_veiculo": 2,
+        "id_categoria": 2
+      }
+    ],
+    "dados_veiculo": [
+      {
+        "id_dados_veiculo": 1,
+        "motor": "Motor A",
+        "cor": "Azul",
+        "placa": "ABC1234",
+        "cambio": "Automático",
+        "combustivel": "Gasolina",
+        "numero_portas": 4,
+        "chassi": "123456789",
+        "opcionais": "Ar condicionado, Direção hidráulica",
+        "observacoes": "Nenhuma observação",
+        "id_veiculo": 1
+      },
+      {
+        "id_dados_veiculo": 2,
+        "motor": "Motor B",
+        "cor": "Preto",
+        "placa": "XYZ5678",
+        "cambio": "Manual",
+        "combustivel": "Álcool",
+        "numero_portas": 2,
+        "chassi": "987654321",
+        "opcionais": "Bancos de couro",
+        "observacoes": "Pequeno arranhão na lateral direita",
+        "id_veiculo": 2
+      }
+    ],
+    "imagens_veiculo": [
+      {
+        "id_imagem_veiculo": 1,
+        "url_imagem": "https://exemplo.com/imagem1.jpg",
+        "principal": true,
+        "id_veiculo": 1
+      },
+      {
+        "id_imagem_veiculo": 2,
+        "url_imagem": "https://exemplo.com/imagem2.jpg",
+        "principal": false,
+        "id_veiculo": 2
+      }
+    ]
+  }
+  

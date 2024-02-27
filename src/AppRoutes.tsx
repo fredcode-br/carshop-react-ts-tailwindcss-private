@@ -12,6 +12,7 @@ import Dashboard from "./pages/Dashboard";
 import Manufacturers from "./pages/Manufacturers";
 import Vehicles from "./pages/Vehicles";
 import PrivateRoute from "./utils/PrivateRoute";
+import Login from "./pages/Login";
 
 function AppRoutes() {
     return (
@@ -32,13 +33,9 @@ function AppRoutes() {
                         <Route path="/veiculos" element={<Vehicles />} />
                     </Route>
                 </Route>
-
-
-
-                {/* <Route path="/" element={<FormBasePage />}>
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/cadastro" element={<Cadastro />} />
-                </Route> */}
+                
+                <Route path="/login" element={<Login />} />
+                   
             </Routes>
         </BrowserRouter>
     )

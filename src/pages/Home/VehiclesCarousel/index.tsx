@@ -4,6 +4,7 @@ import 'slick-carousel/slick/slick.css';
 import VehicleCard from '../../../components/VehicleCard';
 
 interface Vehicle {
+  id: number;
   title: string;
   image: string;
   price: number;
@@ -60,14 +61,15 @@ function VehiclesCarousel({ vehicles }: Props) {
         <div className="container">
           <h3 className="pb-5 text-center text-xl font-bold uppercase">Os Favoritos do Momento</h3>
           <Slider {...settings} className="w-full">
-            {vehicles.map((car, index) => (
+            {vehicles.map((vehicle, index) => (
               <div key={index} className="flex justify-center px-2">
                 <VehicleCard
-                  title={car.title}
-                  imageUrl={car.image}
-                  price={car.price}
-                  km={car.km}
-                  year={car.year}
+                  id={vehicle.id}
+                  title={vehicle.title}
+                  imageUrl={vehicle.image}
+                  price={vehicle.price}
+                  km={vehicle.km}
+                  year={vehicle.year}
                 />
               </div>
             ))}

@@ -1,43 +1,14 @@
-import React, { useState } from 'react';
-import { HomeIcon, TruckIcon, UserIcon, ChartBarIcon, CurrencyDollarIcon } from "@heroicons/react/24/outline";
+import { useState } from "react"; // Importe o useState
+import { HomeIcon, TruckIcon } from "@heroicons/react/24/outline";
 import logo from "../../assets/img/logoadm.png";
+import { Link } from "react-router-dom";
 
-const SideBar: React.FC = () => {
-  const [showVeiculosDropdown, setShowVeiculosDropdown] = useState(false);
-  const [showClientesDropdown, setShowClientesDropdown] = useState(false);
-  const [showVendasDropdown, setShowVendasDropdown] = useState(false);
-  const [showConsignadoDropdown, setShowConsignadoDropdown] = useState(false);
+function SideBar() {
+  const [activeLink, setActiveLink] = useState(""); // Estado para armazenar o link ativo
 
-  const handleVeiculosDropdownToggle = () => {
-    setShowVeiculosDropdown(!showVeiculosDropdown);
-    // Fechar outros dropdowns
-    setShowClientesDropdown(false);
-    setShowVendasDropdown(false);
-    setShowConsignadoDropdown(false);
-  };
 
-  const handleClientesDropdownToggle = () => {
-    setShowClientesDropdown(!showClientesDropdown);
-    // Fechar outros dropdowns
-    setShowVeiculosDropdown(false);
-    setShowVendasDropdown(false);
-    setShowConsignadoDropdown(false);
-  };
-
-  const handleVendasDropdownToggle = () => {
-    setShowVendasDropdown(!showVendasDropdown);
-    // Fechar outros dropdowns
-    setShowVeiculosDropdown(false);
-    setShowClientesDropdown(false);
-    setShowConsignadoDropdown(false);
-  };
-
-  const handleConsignadoDropdownToggle = () => {
-    setShowConsignadoDropdown(!showConsignadoDropdown);
-    // Fechar outros dropdowns
-    setShowVeiculosDropdown(false);
-    setShowClientesDropdown(false);
-    setShowVendasDropdown(false);
+  const handleSetActiveLink = (link: string) => {
+    setActiveLink(link);
   };
 
   return (
@@ -46,82 +17,60 @@ const SideBar: React.FC = () => {
         <img src={logo} alt="Logo" />
       </div>
       <nav className="flex-1 mt-5 px-2">
-        <li
-            className="flex items-center py-2 px-4 text-white hover:bg-gray-700 cursor-pointer"
-          >
-          <HomeIcon className="h-6 w-6 mr-2" />
+        <Link
+          className={`flex items-center py-2 px-4 text-white hover:text-orange-600 cursor-pointer ${
+            activeLink === "dashboard" && "text-orange-600" // Adiciona a classe text-orange-600 se o link ativo for "dashboard"
+          }`}
+          to="/dashboard"
+          onClick={() => handleSetActiveLink("dashboard")} // Define o link ativo como "dashboard" quando clicado
+        >
+          <HomeIcon className="h-6 w-6 mr-3" />
           Dashboard
-        </li>
-        <div className="relative">
-          <li
-            className="flex items-center py-2 px-4 text-white hover:bg-gray-700 cursor-pointer"
-            onClick={handleVeiculosDropdownToggle}
-          >
-            <TruckIcon className="h-6 w-6 mr-2" />
-            Veículos
-          </li>
-          {showVeiculosDropdown && (
-            <div className="bg-gray-800 text-white py-2 ps-8">
-              <li className="cursor-pointer">Option 1</li>
-              <li className="cursor-pointer">Option 2</li>
-              <li className="cursor-pointer">Option 3</li>
-              <li className="cursor-pointer">Option 4</li>
-            </div>
-          )}
-        </div>
-        <div className="relative">
-          <li
-            className="flex items-center block py-2 px-4 text-white hover:bg-gray-700 cursor-pointer"
-            onClick={handleClientesDropdownToggle}
-          >
-            <UserIcon className="h-6 w-6 mr-2" />
-            Clientes
-          </li>
-          {showClientesDropdown && (
-            <div className="bg-gray-800 text-white py-2 ps-8">
-              <li className="cursor-pointer">Option 1</li>
-              <li className="cursor-pointer">Option 2</li>
-            </div>
-          )}
-        </div>
-        <div className="relative">
-          <li
-            className="flex items-center block py-2 px-4 text-white hover:bg-gray-700 cursor-pointer"
-            onClick={handleVendasDropdownToggle}
-          >
-            <ChartBarIcon className="h-6 w-6 mr-2" />
-            Vendas
-          </li>
-          {showVendasDropdown && (
-            <div className="bg-gray-800 text-white py-2 ps-8">
-              <li className="cursor-pointer">Option 1</li>
-              <li className="cursor-pointer">Option 2</li>
-              <li className="cursor-pointer">Option 3</li>
-              <li className="cursor-pointer">Option 4</li>
-              <li className="cursor-pointer">Option 5</li>
-            </div>
-          )}
-        </div>
-        <div className="relative">
-          <li
-            className="flex items-center block py-2 px-4 text-white hover:bg-gray-700 cursor-pointer"
-            onClick={handleConsignadoDropdownToggle}
-          >
-            <CurrencyDollarIcon className="h-6 w-6 mr-2" />
-            Consignado
-          </li>
-          {showConsignadoDropdown && (
-            <div className="bg-gray-800 text-white py-2 ps-8">
-              <li className="cursor-pointer">Option 1</li>
-              <li className="cursor-pointer">Option 2</li>
-              <li className="cursor-pointer">Option 3</li>
-              <li className="cursor-pointer">Option 4</li>
-            </div>
-          )}
-        </div>
+        </Link>
+        <Link
+          className={`flex items-center py-2 px-4 text-white hover:text-orange-600 cursor-pointer ${
+            activeLink === "categorias" && "text-orange-600" // Adiciona a classe text-orange-600 se o link ativo for "categorias"
+          }`}
+          to="/categorias"
+          onClick={() => handleSetActiveLink("categorias")} // Define o link ativo como "categorias" quando clicado
+        >
+          <HomeIcon className="h-6 w-6 mr-3" />
+          Categorias
+        </Link>
+        {/* Repita o mesmo padrão para outros links */}
+        <Link
+          className={`flex items-center py-2 px-4 text-white hover:text-orange-600 cursor-pointer ${
+            activeLink === "fabricantes" && "text-orange-600"
+          }`}
+          to="/fabricantes"
+          onClick={() => handleSetActiveLink("fabricantes")}
+        >
+          <HomeIcon className="h-6 w-6 mr-3" />
+          Fabricantes
+        </Link>
+        <Link
+          className={`flex items-center py-2 px-4 text-white hover:text-orange-600 cursor-pointer ${
+            activeLink === "tipos-de-veiculos" && "text-orange-600"
+          }`}
+          to="/tipos-de-veiculos"
+          onClick={() => handleSetActiveLink("tipos-de-veiculos")}
+        >
+          <HomeIcon className="h-6 w-6 mr-3" />
+          Tipos de Veículos
+        </Link>
+        <Link
+          className={`flex items-center py-2 px-4 text-white hover:text-orange-600 cursor-pointer ${
+            activeLink === "veiculos" && "text-orange-600"
+          }`}
+          to="/veiculos"
+          onClick={() => handleSetActiveLink("veiculos")}
+        >
+          <TruckIcon className="h-6 w-6 mr-3" />
+          Veiculos
+        </Link>
       </nav>
     </div>
   );
-};
+}
 
 export default SideBar;
