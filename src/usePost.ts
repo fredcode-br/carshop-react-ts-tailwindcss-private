@@ -1,31 +1,53 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-export default function usePost() {
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState(false);
-    const [resp, setResp] = useState('');
-
-    async function postData<T>({url, data, token} : {url: string, data: T, token?: string}) {
-        const headers: HeadersInit = {
-            'Content-Type': 'application/json'
-        }
-        if (token) {
-            headers['Authorization'] = `Barear ${token}`;
-        }
-        try{
-            const resp = await fetch(`http://localhost:3000/${url}`, {
-                method: 'POST',
-                headers,
-                body: JSON.stringify(data)
-            })
-            setSuccess(true)
-            const response = await resp.json();
-            setResp(response.token);
-        }
-        catch (error) {
-            setError('Não foi possível enviar os dados!');
-        }
-    }
-
-    return {postData, success, error, resp}
+interface PostOptions {
+  url: string;
+  body: object;
+  token?: string;
 }
+
+interface PostResponse<T> {
+  data: T | null;
+  error: Error | null;
+  success: boolean;
+  postData: (options: PostOptions) => Promise<void>;
+}
+
+const usePost = <T>(): PostResponse<{ user: T, token: string }> => {
+  const [data, setData] = useState<{ user: T, token: string } | null>(null);
+  const [error, setError] = useState<Error | null>(null);
+  const [success, setSuccess] = useState<boolean>(false);
+
+  const postData = async ({ url, body, token }: PostOptions) => {
+    setSuccess(false);
+    try {
+      const headers: HeadersInit = {
+        'Content-Type': 'application/json',
+      };
+
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+
+      const response = await fetch(`http://localhost:3000/${url}`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(body),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch');
+      }
+
+      const responseData = await response.json();
+      setData(responseData);
+      setSuccess(true); 
+    } catch (error) {
+      setError(error as Error);
+    }
+  };
+
+  return { data, error, success, postData };
+};
+
+export default usePost;

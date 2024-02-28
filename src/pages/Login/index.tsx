@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import logoAdmin from "../../assets/img/logoadm.png";
 import Button from "../../components/Button";
-import { useNavigate } from "react-router-dom";
 import { UserCircleIcon, LockClosedIcon } from '@heroicons/react/24/outline';
-import usePost from "../../usePost";
+import { AuthContext } from "../../context/AuthContext";
+import { Navigate } from "react-router-dom";
 
 
 interface ILogin {
@@ -14,42 +14,35 @@ interface ILogin {
 function Login(){
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
-    const { postData, resp } = usePost();
-    const navigate = useNavigate();
+    const { signIn, signed } = useContext(AuthContext);
 
     const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
+        event.preventDefault(); 
 
-        const user: ILogin = {
+        const data: ILogin = {
           email: email,
           password: password
         }
 
-        try {    
-            postData({url: "login", data: user});
-            
-            // resp && navigate('/dashboard');
-          } catch (error) {
-            error && alert("Não foi possível fazer login!")
-          }
+        await signIn(data); 
     }
+
+    if(signed) {
+      return <Navigate to="/dashboard" />
+    } 
 
     return (
         <main className="flex justify-center items-center h-screen">
           <div className="flex flex-col items-center bg-black p-7 rounded-sm text-white">
             <img src={logoAdmin} className=" w-52" alt="logo da empresa, formada por um carro em cima da palavra carshop e ao lado a palavra ADM grande em negrito" />
-            <form onSubmit={handleLogin} method="post" className="mt-6">
+            <form onSubmit={handleLogin} className="mt-6">
             <div className="relative flex items-center mb-5">
                 <input 
                     type="email" 
                     name="email" 
                     id="email" 
                     value={email} 
-                    onChange={(e) => {
-                          e.preventDefault();
-                          setEmail(e.target.value);
-                        }
-                    }
+                    onChange={(e) => setEmail(e.target.value) }
                     placeholder="E-mail" 
                     className="bg-white text-gray-600 border font-bold border-gray-600 px-4 py-2 rounded-lg focus:outline-none pl-10" 
                 />
@@ -62,18 +55,14 @@ function Login(){
                     name="password" 
                     id="password" 
                     value={password} 
-                    onChange={(e) => {
-                          e.preventDefault();
-                          setPassword(e.target.value);
-                        }
-                    }
+                    onChange={(e) => setPassword(e.target.value) }
                     placeholder="Senha" 
                     className="bg-white text-gray-600 border font-bold border-gray-600 px-4 py-2 rounded-lg focus:outline-none pl-10" 
                 />
                 <LockClosedIcon className="h-6 w-6 text-gray-500 absolute left-3 top-1/2 transform -translate-y-1/2" />
               </div>
               <Button
-              type="submit"
+                type="submit"
                 customClass="bg-gray-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               >
                 Iniciar sessão
