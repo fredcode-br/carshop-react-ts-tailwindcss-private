@@ -1,11 +1,11 @@
 import { useState } from "react";
 
 export default function usePost() {
-    const [erro, setErro] = useState('');
-    const [sucesso, setSucesso] = useState(false);
-    const [resposta, setResposta] = useState('');
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState(false);
+    const [resp, setResp] = useState('');
 
-    async function cadastrarDados<T>({url, dados, token} : {url: string, dados: T, token?: string}) {
+    async function postData<T>({url, data, token} : {url: string, data: T, token?: string}) {
         const headers: HeadersInit = {
             'Content-Type': 'application/json'
         }
@@ -13,19 +13,19 @@ export default function usePost() {
             headers['Authorization'] = `Barear ${token}`;
         }
         try{
-            const resposta = await fetch(`http://localhost:8080/${url}`, {
+            const resp = await fetch(`http://localhost:3000/${url}`, {
                 method: 'POST',
                 headers,
-                body: JSON.stringify(dados)
+                body: JSON.stringify(data)
             })
-            setSucesso(true)
-            const respsotaConvertida = await resposta.json();
-            setResposta(respsotaConvertida.token);
+            setSuccess(true)
+            const response = await resp.json();
+            setResp(response.token);
         }
-        catch (erro) {
-            setErro('Não foi possível enviar os dados!');
+        catch (error) {
+            setError('Não foi possível enviar os dados!');
         }
     }
 
-    return {cadastrarDados, sucesso, erro, resposta}
+    return {postData, success, error, resp}
 }
